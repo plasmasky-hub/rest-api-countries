@@ -1,10 +1,14 @@
 import { useState } from "react";
 import "./App.scss";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { Header } from "./components/Header";
+import { Search } from "./components/Search";
+import { Filter } from "./components/Filter";
+
+export interface ComponentBaseProps {
+  darkMode: boolean;
+}
 
 function App() {
-  const [count, setCount] = useState(0);
   const [darkMode, setDarkMode] = useState(false);
 
   function switchDarkMode() {
@@ -12,27 +16,14 @@ function App() {
   }
 
   return (
-    <section className={`font-nunito ${darkMode ? "dark" : "light"}`}>
-      <header className=" fixed bg-white dark:bg-blue-dark">
-        <a>Where in the world?</a>
-        <button onClick={switchDarkMode}>
-          {darkMode ? <DarkModeIcon /> : <DarkModeOutlinedIcon />}Dark Mode
-        </button>
-      </header>
-      <h1 className=" font-medium mobile:font-light desktop:font-bold">
-        Vite + React
-      </h1>
-      <div className="card dark:bg-blue-very-dark-bg">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+    <section
+      className={`font-nunito text-base text-blue-very-dark-text dark:text-white bg-white dark:bg-blue-very-dark-bg ${darkMode ? "dark" : "light"}`}
+    >
+      <Header onClick={switchDarkMode} darkMode={darkMode} />
+      <div className="px-10 pt-24 mobile:px-6 mobile:pt-24 desktop:px-16 desktop:pt-32 flex justify-between items-center">
+        <Search darkMode={darkMode} />
+        <Filter darkMode={darkMode} />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </section>
   );
 }
